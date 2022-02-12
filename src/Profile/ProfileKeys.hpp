@@ -102,6 +102,7 @@ extern const char WeGlideAircraftType[];
 extern const char WeGlideAutomaticUpload[];
 extern const char CoPilotName[];
 extern const char CrewWeightTemplate[];
+extern const char PassengerWeightTemplate[];
 extern const char AircraftType[];
 extern const char AircraftReg[];
 extern const char CompetitionId[];

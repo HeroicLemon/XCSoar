@@ -62,5 +62,8 @@ struct LoggerSettings {
   /** Crew mass template in kg */
   unsigned crew_mass_template;
 
+  /** Passenger mass template in kg */
+  unsigned passenger_mass_template;
+
   void SetDefaults();
 };

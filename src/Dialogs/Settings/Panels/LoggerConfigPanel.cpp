@@ -39,6 +39,7 @@ enum ControlIndex {
   PilotName,
   CoPilotName,
   CrewWeightTemplate,
+  PassengerWeightTemplate,
   LoggerTimeStepCruise,
   LoggerTimeStepCircling,
   DisableAutoLogger,
@@ -76,12 +77,18 @@ LoggerConfigPanel::Prepare(ContainerWindow &parent,
 
   AddText(_("CoPilot name"), nullptr, logger.copilot_name);
 
-  AddFloat(_("Crew weight default"),
+  AddFloat(_("Pilot weight default"),
             _("Default for all weight loaded to the glider beyond the empty weight and besides "
-                "the water ballast."),
+                "the water ballast and passenger."),
             _T("%.0f %s"), _T("%.0f"),
             0, 300, 5, false, UnitGroup::MASS,
             logger.crew_mass_template);
+  
+  AddFloat(_("Passenger weight default"),
+           _("Default weight for the passenger."),
+           _T("%.0f %s"), _T("%.0f"),
+           0, 300, 5, false, UnitGroup::MASS,
+           logger.passenger_mass_template);
 
   AddDuration(_("Time step cruise"),
               _("This is the time interval between logged points when not circling."),
@@ -127,6 +134,9 @@ LoggerConfigPanel::Save(bool &changed) noexcept
 
   changed |= SaveValue(CrewWeightTemplate, UnitGroup::MASS, ProfileKeys::CrewWeightTemplate,
                        logger.crew_mass_template);
+
+  changed |= SaveValue(PassengerWeightTemplate, UnitGroup::MASS, ProfileKeys::PassengerWeightTemplate,
+                       logger.passenger_mass_template);
 
   changed |= SaveValue(LoggerTimeStepCruise, ProfileKeys::LoggerTimeStepCruise,
                        logger.time_step_cruise);
