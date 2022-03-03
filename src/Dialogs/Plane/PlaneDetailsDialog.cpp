@@ -38,12 +38,10 @@ class PlaneEditWidget final
     REGISTRATION,
     COMPETITION_ID,
     POLAR,
+    WEIGHT_AND_BALANCE,
     TYPE,
     HANDICAP,
     WING_AREA,
-    EMPTY_MASS,
-    MAX_BALLAST,
-    DUMP_TIME,
     MAX_SPEED,
     WEGLIDE_ID,
   };
@@ -64,6 +62,7 @@ public:
   void UpdateCaption() noexcept;
   void UpdatePolarButton() noexcept;
   void PolarButtonClicked() noexcept;
+  void WeightAndBalanceButtonClicked() noexcept;
 
   /* virtual methods from Widget */
   void Prepare(ContainerWindow &parent, const PixelRect &rc) noexcept override;
@@ -112,6 +111,7 @@ PlaneEditWidget::Prepare([[maybe_unused]] ContainerWindow &parent, [[maybe_unuse
   AddText(_("Registration"), nullptr, plane.registration, this);
   AddText(_("Comp. ID"), nullptr, plane.competition_id);
   AddButton(_("Polar"), [this](){ PolarButtonClicked(); });
+  AddButton(_("Weight and Balance"), [this](){ WeightAndBalanceButtonClicked(); });
   AddText(_("Type"), nullptr, plane.type);
   AddInteger(_("Handicap"), nullptr,
              _T("%u %%"), _T("%u"),
@@ -121,18 +121,6 @@ PlaneEditWidget::Prepare([[maybe_unused]] ContainerWindow &parent, [[maybe_unuse
            _T("%.1f m²"), _T("%.1f"),
            0, 40, 0.1,
            false, plane.wing_area);
-  AddFloat(_("Empty Mass"), _("Net mass of the rigged plane."),
-           _T("%.0f %s"), _T("%.0f"),
-           0, 1000, 5, false,
-           UnitGroup::MASS, plane.empty_mass);
-  AddFloat(_("Max. Ballast"), nullptr,
-           _T("%.0f l"), _T("%.0f"),
-           0, 500, 5,
-           false, plane.max_ballast);
-  AddInteger(_("Dump Time"), nullptr,
-             _T("%u s"), _T("%u"),
-             10, 300, 5,
-             plane.dump_time);
   AddFloat(_("Max. Cruise Speed"), nullptr,
            _T("%.0f %s"), _T("%.0f"), 0, 300, 5,
            false, UnitGroup::HORIZONTAL_SPEED, plane.max_speed);
@@ -186,9 +174,17 @@ PlaneEditWidget::PolarButtonClicked() noexcept
 
   /* reload attributes that may have been modified */
   LoadValue(WING_AREA, plane.wing_area);
-  LoadValue(EMPTY_MASS, plane.empty_mass, UnitGroup::MASS);
-  LoadValue(MAX_BALLAST, plane.max_ballast);
   LoadValue(MAX_SPEED, plane.max_speed, UnitGroup::HORIZONTAL_SPEED);
+}
+
+inline void 
+PlaneEditWidget::WeightAndBalanceButtonClicked() noexcept
+{
+  bool changed = false;
+  if (!Save(changed))
+    return;
+
+  dlgPlaneWeightAndBalanceShowModal(plane);  
 }
 
 bool

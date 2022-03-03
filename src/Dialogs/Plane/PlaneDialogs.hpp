@@ -32,3 +32,6 @@ dlgPlaneDetailsShowModal(Plane &plane);
 
 bool
 dlgPlanePolarShowModal(Plane &plane);
+
+bool 
+dlgPlaneWeightAndBalanceShowModal(Plane &plane);

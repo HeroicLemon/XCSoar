@@ -62,6 +62,7 @@ DIALOG_SOURCES = \
 	$(SRC)/Dialogs/Plane/PlaneDetailsDialog.cpp \
 	$(SRC)/Dialogs/Plane/PlanePolarDialog.cpp \
 	$(SRC)/Dialogs/Plane/PolarShapeEditWidget.cpp \
+	$(SRC)/Dialogs/Plane/PlaneWeightAndBalanceDialog.cpp \
 	$(SRC)/Dialogs/DataField.cpp \
 	$(SRC)/Dialogs/ComboPicker.cpp \
 	$(SRC)/Dialogs/FilePicker.cpp \
