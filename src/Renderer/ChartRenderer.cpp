@@ -725,3 +725,10 @@ ChartRenderer::DrawWeightBarGraph(const XYDataStore &lsdata) noexcept
     canvas.DrawRectangle({pt_base.x, pt_base.y, pt_top.x, pt_top.y});
   }
 }
+
+void 
+ChartRenderer::DrawReferenceLines(double x, double y, ChartLook::Style style) noexcept
+{
+  DrawLine(GetXMin(), y, x, y, style);
+  DrawLine(x, GetYMin(), x, y, style);
+}

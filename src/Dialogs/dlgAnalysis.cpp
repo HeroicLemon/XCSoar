@@ -40,6 +40,7 @@ Copyright_License {
 #include "Renderer/TextButtonRenderer.hpp"
 #include "Renderer/FlightStatisticsRenderer.hpp"
 #include "Renderer/GlidePolarRenderer.hpp"
+#include "Renderer/WeightAndBalanceRenderer.hpp"
 #include "Renderer/BarographRenderer.hpp"
 #include "Renderer/ClimbChartRenderer.hpp"
 #include "Renderer/ThermalBandRenderer.hpp"
@@ -54,6 +55,7 @@ Copyright_License {
 #include "Engine/Contest/Solvers/Contests.hpp"
 #include "ui/event/PeriodicTimer.hpp"
 #include "util/StringCompare.hxx"
+#include "WeightAndBalanceManager.hpp"
 
 #ifdef ENABLE_OPENGL
 #include "ui/canvas/opengl/Scissor.hpp"
@@ -395,9 +397,16 @@ ChartControl::OnPaint(Canvas &canvas) noexcept
                      calculated.climb_history,
                      settings_computer.polar.glide_polar_task);
     break;
-    case AnalysisPage::MACCREADY:
-      RenderMacCready(canvas, rcgfx, chart_look,
-                      settings_computer.polar.glide_polar_task);
+  case AnalysisPage::WEIGHT_AND_BALANCE:
+    {
+      WeightAndBalanceManager manager;
+      RenderWeightAndBalance(canvas, rcgfx, chart_look,
+                            manager);
+      break;
+    }
+  case AnalysisPage::MACCREADY:
+    RenderMacCready(canvas, rcgfx, chart_look,
+                    settings_computer.polar.glide_polar_task);
     break;
   case AnalysisPage::TEMPTRACE:
     RenderTemperatureChart(canvas, rcgfx, chart_look,
@@ -517,6 +526,12 @@ AnalysisWidget::Update()
     GlidePolarCaption(sTmp, settings_computer.polar.glide_polar_task);
     info.SetText(sTmp);
     SetCalcCaption(_("Settings"));
+    break;
+
+  case AnalysisPage::WEIGHT_AND_BALANCE:
+    StringFormatUnsafe(sTmp, _T("%s: %s"), _("Analysis"),
+                    _("Weight and Balance"));
+    dialog.SetCaption(sTmp);
     break;
 
   case AnalysisPage::MACCREADY:
@@ -700,6 +715,7 @@ AnalysisWidget::OnCalcClicked()
   case AnalysisPage::THERMAL_BAND:
   case AnalysisPage::VARIO_HISTOGRAM:
   case AnalysisPage::CONTEST:
+  case AnalysisPage::WEIGHT_AND_BALANCE:
   case AnalysisPage::COUNT:
     break;
   }

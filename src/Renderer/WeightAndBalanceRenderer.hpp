@@ -2,7 +2,7 @@
 Copyright_License {
 
   XCSoar Glide Computer - http://www.xcsoar.org/
-  Copyright (C) 2000-2022 The XCSoar Project
+  Copyright (C) 2000-2021 The XCSoar Project
   A detailed list of copyright holders can be found in the file "AUTHORS".
 
   This program is free software; you can redistribute it and/or
@@ -21,36 +21,17 @@ Copyright_License {
 }
 */
 
-#pragma once
+#ifndef XCSOAR_WEIGHT_AND_BALANCE_RENDERER_HPP
+#define XCSOAR_WEIGHT_AND_BALANCE_RENDERER_HPP
 
-struct Look;
-namespace UI { class SingleWindow; }
-class FullBlackboard;
-class GlideComputer;
-class Airspaces;
-class RasterTerrain;
-
-enum class AnalysisPage {
-  WEIGHT_AND_BALANCE,
-  BAROGRAPH,
-  CLIMB,
-  THERMAL_BAND,
-  VARIO_HISTOGRAM,
-  TASK_SPEED,
-  WIND,
-  POLAR,  
-  MACCREADY,
-  TEMPTRACE,
-  TASK,
-  CONTEST,
-  AIRSPACE,
-  COUNT
-};
+struct PixelRect;
+class Canvas;
+struct ChartLook;
+class WeightAndBalanceManager;
 
 void
-dlgAnalysisShowModal(UI::SingleWindow &parent, const Look &look,
-                     const FullBlackboard &blackboard,
-                     GlideComputer &glide_computer,
-                     const Airspaces *airspaces,
-                     const RasterTerrain *terrain,
-                     AnalysisPage page=AnalysisPage::COUNT);
+RenderWeightAndBalance(Canvas &canvas, const PixelRect rc,
+                 const ChartLook &chart_look,
+                 const WeightAndBalanceManager &weight_and_balance_manager);
+
+#endif

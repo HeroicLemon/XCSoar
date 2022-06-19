@@ -131,6 +131,7 @@ public:
   void DrawImpulseGraph(const XYDataStore &lsdata, const Pen &pen) noexcept;
   void DrawImpulseGraph(const XYDataStore &lsdata, ChartLook::Style style) noexcept;
   void DrawWeightBarGraph(const XYDataStore &lsdata) noexcept;
+  void DrawReferenceLines(double x, double y, ChartLook::Style style) noexcept;
 
   void ScaleYFromData(const LeastSquares &lsdata) noexcept;
   void ScaleXFromData(const LeastSquares &lsdata) noexcept;
