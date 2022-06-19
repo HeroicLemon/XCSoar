@@ -52,6 +52,7 @@ const char OrientationCruise[] = "OrientationCruise";
 const char OrientationCircling[] = "OrientationCircling";
 const char MapShiftBias[] = "MapShiftBias";
 const char DistanceUnitsValue[] = "DistanceUnit";
+const char DistanceFromDatumUnitsValue[] = "DistanceFromDatumUnit";
 const char DrawTerrain[] = "DrawTerrain";
 const char SlopeShading[] = "SlopeShading";
 const char SlopeShadingType[] = "SlopeShadingType";

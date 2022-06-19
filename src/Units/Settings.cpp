@@ -36,6 +36,7 @@ UnitSetting::SetDefaults() noexcept
   pressure_unit = Unit::HECTOPASCAL;
   wing_loading_unit = Unit::KG_PER_M2;
   mass_unit = Unit::KG;
+  distance_from_datum_unit = Unit::MM;
 }
 
 Unit
@@ -74,6 +75,9 @@ UnitSetting::GetByGroup(UnitGroup group) const noexcept
 
   case UnitGroup::MASS:
     return mass_unit;
+
+  case UnitGroup::DISTANCE_FROM_DATUM:
+    return distance_from_datum_unit;
   }
 
   return Unit::UNDEFINED;
@@ -91,5 +95,6 @@ UnitSetting::operator==(const UnitSetting &right) const noexcept
       task_speed_unit == right.task_speed_unit &&
       pressure_unit == right.pressure_unit &&
       wing_loading_unit == right.wing_loading_unit &&
-      mass_unit == right.mass_unit);
+      mass_unit == right.mass_unit &&
+      distance_from_datum_unit == right.distance_from_datum_unit);
 }

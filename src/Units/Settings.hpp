@@ -48,6 +48,8 @@ struct UnitSetting
   Unit wing_loading_unit;
   /** Unit for mass */
   Unit mass_unit;
+  /** Unit for distance from datum */
+  Unit distance_from_datum_unit;
 
   void SetDefaults() noexcept;
 

@@ -44,6 +44,7 @@ enum ControlIndex {
   UnitsPressure,
   UnitsMass,
   UnitsWingLoading,
+  UnitsDistanceFromDatum,
   spacer_2,
   UnitsLatLon
 };
@@ -78,6 +79,7 @@ UnitsConfigPanel::UpdateUnitFields(const UnitSetting &units)
   LoadValueEnum(UnitsPressure, units.pressure_unit);
   LoadValueEnum(UnitsMass, units.mass_unit);
   LoadValueEnum(UnitsWingLoading, units.wing_loading_unit);
+  LoadValueEnum(UnitsDistanceFromDatum, units.distance_from_datum_unit);
 
   // Ignore the coord.format for the preset selection.
 }
@@ -96,6 +98,7 @@ UnitsConfigPanel::PresetCheck()
   current_dlg_set.pressure_unit = (Unit)GetValueEnum(UnitsPressure);
   current_dlg_set.mass_unit = (Unit)GetValueEnum(UnitsMass);
   current_dlg_set.wing_loading_unit = (Unit)GetValueEnum(UnitsWingLoading);
+  current_dlg_set.distance_from_datum_unit = (Unit)GetValueInteger(UnitsDistanceFromDatum);
 
   LoadValueEnum(UnitsPreset, Units::Store::EqualsPresetUnits(current_dlg_set));
 }
@@ -240,6 +243,16 @@ UnitsConfigPanel::Prepare(ContainerWindow &parent,
           (unsigned)config.wing_loading_unit, this);
   SetExpertRow(UnitsWingLoading);
 
+  static constexpr StaticEnumChoice distance_from_datum_labels_list[] = {
+      { (unsigned)Unit::MM, _T("mm") },
+      { (unsigned)Unit::INCHES, _T("inches") },
+      { 0 }
+  };
+  AddEnum(_("Distance from Datum"), _("Units used for CG distance from datum."),
+          distance_from_datum_labels_list,
+          (unsigned)config.distance_from_datum_unit, this);
+  SetExpertRow(UnitsDistanceFromDatum);
+
   AddSpacer();
   SetExpertRow(spacer_2);
 
@@ -290,7 +303,10 @@ UnitsConfigPanel::Save(bool &_changed) noexcept
   changed |= SaveValueEnum(UnitsWingLoading, ProfileKeys::WingLoadingUnitValue,
                            config.wing_loading_unit);
 
-  changed |= SaveValueEnum(UnitsLatLon, ProfileKeys::LatLonUnits, coordinate_format);
+  changed |= SaveValueEnum(UnitsDistanceFromDatum, ProfileKeys::DistanceFromDatumUnitsValue, 
+                           config.distance_from_datum_unit);
+
+  changed |= SaveValueEnum(UnitsLatLon, ProfileKeys::LatLonUnits, coordinate_format);  
 
   _changed |= changed;
 

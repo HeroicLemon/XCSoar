@@ -112,6 +112,13 @@ namespace Units
   [[gnu::pure]]
   Unit GetUserPressureUnit();
 
+  /**
+   * Returns the user-specified unit for a distance from datum.
+   * @return The user-specified unit for a distance from datum.
+   */
+  [[gnu::pure]]
+  Unit GetUserDistanceFromDatumUnit();
+
   [[gnu::pure]]
   Unit GetUserUnitByGroup(UnitGroup group);
 
@@ -138,6 +145,12 @@ namespace Units
 
   [[gnu::pure]]
   const TCHAR *GetPressureName();
+
+  gcc_pure 
+  const TCHAR *GetMassName();
+
+  gcc_pure
+  const TCHAR *GetDistanceFromDatumName();
 
   static inline double
   ToUserAltitude(double value)
@@ -246,5 +259,16 @@ namespace Units
   {
     return ToSysUnit(Value, current.mass_unit);
   }
-    
+
+  static inline double
+  ToUserDistanceFromDatum(double Value)
+  {
+    return ToUserUnit(Value, current.distance_from_datum_unit);
+  }
+
+  static inline double 
+  ToSysDistanceFromDatum(double Value)
+  {
+    return ToSysUnit(Value, current.distance_from_datum_unit);
+  }
 };

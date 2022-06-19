@@ -36,6 +36,7 @@ UnitSetting Units::current = {
   Unit::HECTOPASCAL,
   Unit::KG_PER_M2,
   Unit::KG,
+  Unit::MM,
 };
 
 void
@@ -105,6 +106,12 @@ Units::GetUserPressureUnit()
 }
 
 Unit
+Units::GetUserDistanceFromDatumUnit()
+{
+  return current.distance_from_datum_unit;
+}
+
+Unit
 Units::GetUserUnitByGroup(UnitGroup group)
 {
   return current.GetByGroup(group);
@@ -156,6 +163,18 @@ const TCHAR *
 Units::GetPressureName()
 {
   return GetUnitName(GetUserPressureUnit());
+}
+
+const TCHAR *
+Units::GetMassName()
+{
+  return GetUnitName(GetUserMassUnit());
+}
+
+const TCHAR *
+Units::GetDistanceFromDatumName()
+{
+  return GetUnitName(GetUserDistanceFromDatumUnit());
 }
 
 double

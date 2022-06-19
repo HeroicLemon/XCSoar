@@ -327,6 +327,23 @@ GetMassUnit(const ProfileMap &map, const char *key, Unit &value)
   return true;
 }
 
+static constexpr bool
+ValidDistanceFromDatumUnit(Unit unit)
+{
+  return unit == Unit::MM || unit == Unit::INCHES;
+}
+
+static bool
+GetDistanceFromDatumUnit(const ProfileMap &map, const char *key, Unit &value)
+{
+  Unit tmp;
+  if (!map.GetEnum(key, tmp) || !ValidDistanceFromDatumUnit(tmp))
+    return false;
+
+  value = tmp;
+  return true;
+}
+
 void
 Profile::LoadUnits(const ProfileMap &map, UnitSetting &config)
 {
@@ -348,4 +365,6 @@ Profile::LoadUnits(const ProfileMap &map, UnitSetting &config)
   GetWingLoadingUnit(map, ProfileKeys::WingLoadingUnitValue,
                      config.wing_loading_unit);
   GetMassUnit(map, ProfileKeys::MassUnitValue, config.mass_unit);
+  GetDistanceFromDatumUnit(map, ProfileKeys::DistanceFromDatumUnitsValue, 
+                     config.distance_from_datum_unit);
 }

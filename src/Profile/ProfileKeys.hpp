@@ -32,6 +32,7 @@ extern const char CustomDPI[];
 extern const char Password[];
 extern const char SpeedUnitsValue[];
 extern const char DistanceUnitsValue[];
+extern const char DistanceFromDatumUnitsValue[];
 extern const char AltitudeUnitsValue[];
 extern const char TemperatureUnitsValue[];
 extern const char LiftUnitsValue[];
