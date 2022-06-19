@@ -243,6 +243,7 @@ XCSOAR_SOURCES := \
 	$(SRC)/FLARM/Global.cpp \
 	$(SRC)/FLARM/Glue.cpp \
 	$(SRC)/BallastDumpManager.cpp \
+	$(SRC)/WeightAndBalanceManager.cpp \
 	$(SRC)/Logger/Settings.cpp \
 	$(SRC)/Logger/Logger.cpp \
 	$(SRC)/Logger/LoggerFRecord.cpp \
